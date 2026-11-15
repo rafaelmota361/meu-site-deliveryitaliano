@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido realizado - Trattoria Venezia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carrinho.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .confirm-page {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: var(--bg-light-gray);
+        }
+        .confirm-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 40px 32px;
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+        }
+        .confirm-icon {
+            font-size: 3.4rem;
+            color: #2e7d32;
+            margin-bottom: 14px;
+        }
+        .confirm-card h1 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--primary-wine);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .confirm-card p {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .confirm-summary {
+            margin: 22px 0;
+            padding: 16px;
+            background: var(--bg-light-gray);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .confirm-summary div {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+        .confirm-actions {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn-confirm-primary {
+            display: inline-block;
+            background-color: var(--primary-wine);
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+        .btn-confirm-primary:hover {
+            background-color: var(--dark-wine);
+        }
+        .btn-confirm-secondary {
+            color: var(--primary-wine);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-confirm-secondary:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="dark-mode.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="logo-delivery.png" alt="Trattoria Venezia">
+                </a>
+            </div>
+
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#cardapio" class="nav-link">Card&aacute;pio</a></li>
+                    <li><a href="meus-pedidos.html" class="nav-link">Meus Pedidos</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="user-account-wrapper">
+                    <button class="header-btn" id="userMenuBtn"></button>
+                </div>
+
+                <a href="carrinho.html" class="header-btn cart-btn" style="text-decoration: none;">
+                    <div class="cart-info">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-total" id="headerCartTotal">R$ 0,00</span>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="confirm-page">
+        <div class="confirm-card">
+            <i class="fa-solid fa-circle-check confirm-icon"></i>
+            <h1>Pedido realizado com sucesso!</h1>
+            <p>Agradecemos sua prefer&ecirc;ncia.</p>
+            <p>Seu pedido j&aacute; est&aacute; na cozinha.</p>
+
+            <div class="confirm-summary" id="confirmSummary">
+            </div>
+
+            <div class="confirm-actions">
+                <a href="index.html" class="btn-confirm-primary">Voltar para a tela inicial</a>
+                <a href="meus-pedidos.html" class="btn-confirm-secondary">Ver meus pedidos</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="user.js"></script>
+    <script src="pedido-confirmado.js"></script>
+    <script src="dark-mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+(function () {
+    const STORAGE_KEY = 'trattoria_theme';
+
+    const DARK_CSS = `
+html.dark-mode { color-scheme: dark; --bg-light-gray: #2a2a2e; --border-color: #3d3d44; --text-dark: #f2f2f2; --text-muted: #b3b3b8; --text-white: #ffffff; }
+html.dark-mode body, html.dark-mode .auth-body, html.dark-mode .most-requested, html.dark-mode .menu-section { background-color: #161618; }
+html.dark-mode .hero-welcome, html.dark-mode .orders-page, html.dark-mode .cart-page-container, html.dark-mode .checkout-page, html.dark-mode .cart-content-wrapper { background-color: #1e1e21; }
+html.dark-mode .product-card, html.dark-mode .product-modal-card, html.dark-mode .checkout-card, html.dark-mode .cart-item-card, html.dark-mode .cart-empty-card, html.dark-mode .cart-summary-card, html.dark-mode .auth-card, html.dark-mode .address-modal-card, html.dark-mode .orders-empty, html.dark-mode .order-card, html.dark-mode .confirm-card, html.dark-mode .no-results-content, html.dark-mode .user-dropdown, html.dark-mode .address-form-group input, html.dark-mode .address-form-group select, html.dark-mode .payment-option-card, html.dark-mode .header-search { background-color: #26262a; color: var(--text-dark); }
+html.dark-mode .header-search input { background: transparent; color: var(--text-dark); }
+html.dark-mode .header-search input::placeholder, html.dark-mode .address-form-group input::placeholder { color: #8a8a90; }
+html.dark-mode .product-image-wrapper, html.dark-mode .gallery-nav, html.dark-mode .qty-btn, html.dark-mode .order-status, html.dark-mode .checkout-summary-table th, html.dark-mode .modal-gallery { background-color: #32323a; color: var(--text-dark); }
+html.dark-mode .checkout-summary-table td, html.dark-mode .product-name, html.dark-mode .product-price, html.dark-mode .cart-item-title, html.dark-mode .modal-product-title, html.dark-mode .checkout-section-title, html.dark-mode .address-form-group label, html.dark-mode .user-dropdown-info strong, html.dark-mode .user-dropdown-info span { color: var(--text-dark); }
+html.dark-mode .user-dropdown-link, html.dark-mode .user-account-wrapper .user-dropdown .user-dropdown-link { color: #f0d88a !important; }
+html.dark-mode .user-dropdown-link:hover, html.dark-mode .user-account-wrapper .user-dropdown .user-dropdown-link:hover { background-color: #32323a; }
+html.dark-mode .user-dropdown-logout, html.dark-mode .user-account-wrapper .user-dropdown .user-dropdown-logout { color: var(--text-dark) !important; }
+html.dark-mode .product-card:hover { border-color: rgba(212, 175, 55, 0.35); }
+html.dark-mode .payment-option-card:hover { background-color: #2e2e34; }
+html.dark-mode .payment-option-card.selected { background-color: rgba(212, 175, 55, 0.08); }
+html.dark-mode .payment-option-card.selected .payment-radio-indicator::after { background-color: #ffffff; }
+html.dark-mode .address-form-group input, html.dark-mode .address-form-group select { border-color: var(--border-color); color: var(--text-dark); }
+html.dark-mode .checkout-summary-table td { border-bottom-color: var(--border-color); }
+html.dark-mode .product-description, html.dark-mode .modal-product-description, html.dark-mode .orders-subtitle, html.dark-mode .cart-item-price, html.dark-mode .address-form-group small { color: var(--text-muted); }
+html.dark-mode .product-card, html.dark-mode .product-modal-card, html.dark-mode .checkout-card, html.dark-mode .auth-card, html.dark-mode .order-card { box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45); }
+.dark-mode-toggle { width: 40px; height: 40px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; color: var(--accent-gold); font-size: 1.05rem; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; }
+.dark-mode-toggle:hover { background-color: rgba(255, 255, 255, 0.22); color: #ffffff; }
+.dark-mode-toggle:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+`;
+
+    function injetarEstilos() {
+        if (document.getElementById('darkModeStyles')) return;
+        const style = document.createElement('style');
+        style.id = 'darkModeStyles';
+        style.textContent = DARK_CSS;
+        document.head.appendChild(style);
+    }
+
+    injetarEstilos();
+
+    function aplicarTema(escuro) {
+        document.documentElement.classList.toggle('dark-mode', escuro);
+        const botao = document.getElementById('darkModeToggle');
+        if (botao) {
+            botao.innerHTML = escuro
+                ? '<i class="fa-solid fa-sun"></i>'
+                : '<i class="fa-solid fa-moon"></i>';
+            botao.setAttribute('aria-label', escuro ? 'Ativar modo claro' : 'Ativar modo escuro');
+            botao.title = escuro ? 'Modo claro' : 'Modo escuro';
+        }
+    }
+
+    function temaSalvoEscuro() {
+        try {
+            return localStorage.getItem(STORAGE_KEY) === 'dark';
+        } catch {
+            return false;
+        }
+    }
+
+    function salvarTema(escuro) {
+        try {
+            localStorage.setItem(STORAGE_KEY, escuro ? 'dark' : 'light');
+        } catch {
+        }
+    }
+
+    document.documentElement.classList.toggle('dark-mode', temaSalvoEscuro());
+
+    function inserirBotao() {
+        const acoes = document.querySelector('.header-actions');
+        if (!acoes || document.getElementById('darkModeToggle')) return;
+
+        const botao = document.createElement('button');
+        botao.type = 'button';
+        botao.id = 'darkModeToggle';
+        botao.className = 'dark-mode-toggle';
+        acoes.insertBefore(botao, acoes.firstChild);
+
+        botao.addEventListener('click', function () {
+            const escuro = !document.documentElement.classList.contains('dark-mode');
+            aplicarTema(escuro);
+            salvarTema(escuro);
+        });
+
+        aplicarTema(temaSalvoEscuro());
+    }
+
+    document.addEventListener('DOMContentLoaded', inserirBotao);
+})();

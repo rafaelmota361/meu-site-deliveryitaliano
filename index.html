@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trattoria Venezia - Delivery Italiano</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="address.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="dark-mode.css">
+</head>
+<body>
+<header class="main-header">
+        <div class="header-container">
+
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="logo-delivery.png" alt="Trattoria Venezia Logo">
+                </a>
+            </div>
+
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link ">Home</a></li>
+                    <li><a href="#cardapio" class="nav-link">Card&aacute;pio</a></li>
+                    <li><a href="meus-pedidos.html" class="nav-link">Meus Pedidos</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Busque pelos pratos da loja..." id="searchInput">
+            </div>
+
+            <div class="header-address" id="headerAddressBtn">
+                <i class="fa-solid fa-location-dot address-icon"></i>
+                <div class="address-info">
+                    <span class="address-label">Entregar em:</span>
+                    <span class="address-value" id="currentAddress">Informe seu endere&ccedil;o</span>
+                </div>
+                <i class="fa-solid fa-chevron-down address-arrow"></i>
+            </div>
+
+            <div class="header-actions">
+
+                <div class="user-account-wrapper">
+                    <button class="header-btn user-btn" id="userMenuBtn">
+                        <i class="fa-regular fa-user"></i>
+                        <span class="user-btn-text" id="userBtnText">Entrar / Cadastrar</span>
+                    </button>
+                </div>
+
+                <a href="carrinho.html" class="header-btn cart-btn" style="text-decoration: none;">
+                    <div class="cart-info">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-total" id="headerCartTotal">R$ 0,00</span>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+    <section class="hero-welcome">
+        <div class="hero-container">
+            <h1 class="welcome-title">Bem-vindos &agrave; aut&ecirc;ntica cozinha italiana!</h1>
+            <a href="#cardapio" class="btn-explore-menu">
+                <span>Explorar card&aacute;pio</span>
+                <i class="fa-solid fa-arrow-right explore-arrow"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="most-requested">
+        <div class="section-container">
+            <h2 class="section-title">Mais pedidos</h2>
+
+            <div class="products-grid">
+                <article class="product-card" data-product="pizza">
+                    <div class="product-image-wrapper">
+                        <img src="pizza-catupiry3.png" alt="Pizza de Frango com Catupiry" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pizza de Frango com Catupiry</h3>
+                         <span class="product-price">R$ 75,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao card&aacute;pio</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="pasta">
+                    <div class="product-image-wrapper">
+                        <img src="macarr&atilde;o2.png" alt="Macarr&atilde;o Italiano" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Macarr&atilde;o</h3>
+                         <span class="product-price">R$ 55,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao card&aacute;pio</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="product-modal-overlay hidden" id="productModal">
+        <div class="product-modal-card">
+            <button class="modal-close-btn" id="modalCloseBtn" aria-label="Fechar modal">&times;</button>
+
+
+            <div class="modal-gallery">
+                <button class="gallery-nav prev" id="galleryPrevBtn" aria-label="Imagem anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <img id="modalMainImage" src="" alt="Fotografia do prato" class="gallery-current-img">
+                <button class="gallery-nav next" id="galleryNextBtn" aria-label="Pr&oacute;xima imagem">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="gallery-dots" id="galleryDots"></div>
+            </div>
+
+            <div class="modal-content">
+                <h3 id="modalProductName" class="modal-product-title"></h3>
+                <p id="modalProductDescription" class="modal-product-description"></p>
+
+                <div class="modal-footer">
+                    <button id="modalAddToCartBtn" class="btn-modal-add-cart">
+                        <span>Adicionar ao carrinho</span>
+                        <i class="fa-solid fa-arrow-right modal-btn-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="menu-section" id="cardapio">
+        <div class="section-container">
+            <h2 class="section-title">Nosso Card&aacute;pio- Pratos Principais</h2>
+
+            <div class="products-grid-three">
+                <article class="product-card" data-product="pizza">
+                    <div class="product-image-wrapper">
+                        <img src="pizza-catupiry3.png" alt="Pizza de Frango com Catupiry" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pizza de Frango com Catupiry</h3>
+                         <span class="product-price">R$ 75,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="pasta">
+                    <div class="product-image-wrapper">
+                        <img src="macarr&atilde;o2.png" alt="Macarr&atilde;o" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Macarr&atilde;o</h3>
+                         <span class="product-price">R$ 55,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="risotto">
+                    <div class="product-image-wrapper">
+                        <img src="risoto-1.png" alt="Risoto" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Risoto</h3>
+                         <span class="product-price">R$ 85,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="lasagna">
+                    <div class="product-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80" alt="Lasanha" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Lasanha</h3>
+                         <span class="product-price">R$ 45,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="pepperoni">
+                    <div class="product-image-wrapper">
+                        <img src="pizza-pepperoni-1.png" alt="Pizza de Pepperoni" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pizza de Pepperoni</h3>
+                         <span class="product-price">R$ 70,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="gnocchi">
+                    <div class="product-image-wrapper">
+                        <img src="gnocchi-1.png" alt="Gnocchi" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gnocchi</h3>
+                         <span class="product-price">R$ 50,00</span>
+                        <div class="product-action">
+                            <span class="action-text">Adicionar ao carrinho</span>
+                            <i class="fa-solid fa-arrow-right action-arrow"></i>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="product-modal-overlay hidden" id="productModal">
+        <div class="product-modal-card">
+            <button class="modal-close-btn" id="modalCloseBtn" aria-label="Fechar modal">&times;</button>
+
+
+            <div class="modal-gallery">
+                <button class="gallery-nav prev" id="galleryPrevBtn" aria-label="Imagem anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <img id="modalMainImage" src="" alt="Fotografia do prato" class="gallery-current-img">
+                <button class="gallery-nav next" id="galleryNextBtn" aria-label="Pr&oacute;xima imagem">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="gallery-dots" id="galleryDots"></div>
+            </div>
+
+            <div class="modal-content">
+                <h3 id="modalProductName" class="modal-product-title"></h3>
+                <p id="modalProductDescription" class="modal-product-description"></p>
+
+                <div class="modal-footer">
+                    <button id="modalAddToCartBtn" class="btn-modal-add-cart">
+                        <span>Adicionar ao carrinho</span>
+                        <i class="fa-solid fa-arrow-right modal-btn-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="menu-section">
+        <div class="section-container">
+            <h2 class="section-title">Bebidas</h2>
+
+            <div class="products-grid-four">
+                <article class="product-card" data-product="agua">
+                    <div class="product-image-wrapper">
+                        <img src="agua-3.png" alt="&Aacute;gua com g&aacute;s" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">&Aacute;gua com g&aacute;s</h3>
+                        <span class="product-price">R$ 4,50</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="vinho">
+                    <div class="product-image-wrapper">
+                        <img src="vinho-barbera-2.png" alt="Vinho Barbera" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vinho Barbera</h3>
+                        <span class="product-price">R$ 120,00</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="refri">
+                    <div class="product-image-wrapper">
+                        <img src="coca-2.png" alt="Refrigerante Zero" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Coca-Cola Zero</h3>
+                         <span class="product-price">R$ 6,50</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="suco">
+                    <div class="product-image-wrapper">
+                        <img src="sucu-1.png" alt="Suco natural de maracuj&aacute;" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Suco natural de maracuj&aacute;</h3>
+                         <span class="product-price">R$ 5,69</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+   <section class="menu-section">
+        <div class="section-container">
+            <h2 class="section-title">Sobremesas</h2>
+
+            <div class="products-grid-four">
+                <article class="product-card" data-product="gelato_pistache">
+                    <div class="product-image-wrapper">
+                        <img src="pistache-1.png" alt="Gelato de Pistache" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gelato de Pistache</h3>
+                         <span class="product-price">R$ 13,50</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="tiramisu">
+                    <div class="product-image-wrapper">
+                        <img src="tiramisu-1.png" alt="Tiramis&ugrave;" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Tiramis&ugrave;</h3>
+                         <span class="product-price">R$ 55,61</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="maritozzo">
+                    <div class="product-image-wrapper">
+                        <img src="maritozzo-1.png" alt="Maritozzo" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Maritozzo</h3>
+                         <span class="product-price">R$ 20,42</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product="gelato_morango">
+                    <div class="product-image-wrapper">
+                        <img src="morango-1.png" alt="Gelato de Morango" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gelato de Morango</h3>
+                         <span class="product-price">R$ 14,67</span>
+                        <div class="product-footer">
+                            <div class="product-action">
+                                <span class="action-text">Adicionar ao carrinho</span>
+                                <i class="fa-solid fa-arrow-right action-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="product-modal-overlay hidden" id="productModal">
+        <div class="product-modal-card">
+            <button class="modal-close-btn" id="modalCloseBtn" aria-label="Fechar modal">&times;</button>
+
+
+            <div class="modal-gallery">
+                <button class="gallery-nav prev" id="galleryPrevBtn" aria-label="Imagem anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <img id="modalMainImage" src="" alt="Fotografia do prato" class="gallery-current-img">
+                <button class="gallery-nav next" id="galleryNextBtn" aria-label="Pr&oacute;xima imagem">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="gallery-dots" id="galleryDots"></div>
+            </div>
+
+            <div class="modal-content">
+                <h3 id="modalProductName" class="modal-product-title"></h3>
+                <p id="modalProductDescription" class="modal-product-description"></p>
+                <div class="modal-footer">
+                    <button id="modalAddToCartBtn" class="btn-modal-add-cart">
+                        <span>Adicionar ao carrinho</span>
+                        <i class="fa-solid fa-arrow-right modal-btn-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addressModal" class="address-modal-overlay hidden">
+    <div class="address-modal-card">
+        <div class="address-modal-header">
+            <h3><i class="fa-solid fa-location-dot" style="color: var(--accent-gold);"></i> Onde voc&ecirc; quer receber seu pedido?</h3>
+            <button type="button" id="closeAddressModalBtn" class="address-modal-close" title="Fechar">&times;</button>
+        </div>
+
+        <div class="address-modal-body">
+            <div id="addressAlert" class="address-alert hidden"></div>
+
+            <div id="addressListView" class="address-view">
+                <p class="address-guide-text">Selecione o endere&ccedil;o de entrega para este pedido:</p>
+                <div id="addressListContainer" class="address-list">
+                </div>
+                <button type="button" id="btnAddNewAddress" class="btn-address-secondary">
+                    <i class="fa-solid fa-plus"></i> Adicionar novo endere&ccedil;o
+                </button>
+            </div>
+
+            <div id="addressFormView" class="address-view hidden">
+                <p class="address-guide-text" id="addressFormTitle">Informe seu endere&ccedil;o de entrega para encontrarmos a melhor forma de levar nossos pratos at&eacute; voc&ecirc;.</p>
+
+                <form id="addressForm" class="address-form">
+                    <input type="hidden" id="addrApelido" value="Minha casa">
+
+                    <div class="address-form-group">
+                        <label>Identificar endere&ccedil;o como:</label>
+                        <div class="address-alias-options">
+                            <button type="button" class="alias-chip selected" data-alias="Minha casa">Casa</button>
+                            <button type="button" class="alias-chip" data-alias="Trabalho">Trabalho</button>
+                            <button type="button" class="alias-chip" data-alias="Outro">Outro</button>
+                        </div>
+                    </div>
+
+                    <div class="address-form-row">
+                        <div class="address-form-group" style="flex: 0.4;">
+                            <label for="addrCep">CEP *</label>
+                            <input type="text" id="addrCep" required placeholder="00000-000" maxlength="9">
+                        </div>
+                        <div class="address-form-group" style="flex: 0.6;">
+                            <label for="addrRua">Rua / Logradouro *</label>
+                            <input type="text" id="addrRua" required placeholder="Ex: Av. Afonso Pena">
+                        </div>
+                    </div>
+
+                    <div class="address-form-row">
+                        <div class="address-form-group" style="flex: 0.35;">
+                            <label for="addrNumero">N&uacute;mero *</label>
+                            <input type="text" id="addrNumero" required placeholder="Ex: 120">
+                        </div>
+                        <div class="address-form-group" style="flex: 0.65;">
+                            <label for="addrComplemento">Complemento</label>
+                            <input type="text" id="addrComplemento" placeholder="Apt 302, Bloco B">
+                        </div>
+                    </div>
+
+                    <div class="address-form-row">
+                        <div class="address-form-group">
+                            <label for="addrBairro">Bairro *</label>
+                            <input type="text" id="addrBairro" required placeholder="Ex: Centro">
+                        </div>
+                    </div>
+
+                    <div class="address-form-row">
+                        <div class="address-form-group" style="flex: 0.7;">
+                            <label for="addrCidade">Cidade *</label>
+                            <input type="text" id="addrCidade" required placeholder="Ex: Belo Horizonte">
+                        </div>
+                        <div class="address-form-group" style="flex: 0.3;">
+                            <label for="addrUF">UF *</label>
+                            <input type="text" id="addrUF" required placeholder="MG" maxlength="2" style="text-transform: uppercase;">
+                        </div>
+                    </div>
+
+                    <div class="address-form-group">
+                        <label for="addrReferencia">Ponto de refer&ecirc;ncia</label>
+                        <input type="text" id="addrReferencia" placeholder="Ex: Pr&oacute;ximo &agrave; pra&ccedil;a principal">
+                    </div>
+
+                    <button type="submit" class="btn-address-submit">Salvar endere&ccedil;o</button>
+                    <button type="button" id="btnBackToAddressList" class="btn-address-secondary" style="margin-top: 4px;">Voltar para lista</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="authModal" class="auth-modal-overlay hidden">
+        <div class="auth-card">
+            <button type="button" id="closeAuthModalBtn" class="auth-modal-close" title="Fechar" aria-label="Fechar">&times;</button>
+            <div class="auth-header">
+                <img src="logo-delivery.png" alt="Trattoria Venezia" class="auth-logo">
+                <h2>crie sua conta</h2>
+                <p>acompanhe seus pedidos e salve seus endere&ccedil;os</p>
+            </div>
+            <div id="authAlert" class="auth-alert hidden"></div>
+            <form id="cadastroForm" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome *</label>
+                        <input type="text" id="nome" required placeholder="EX: Rafael">
+                    </div>
+                    <div class="form-group">
+                        <label for="sobrenome">Sobrenome *</label>
+                        <input type="text" id="sobrenome" required placeholder="EX: Mota">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" required placeholder="EX: seuemail@exemplo.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cpf">CPF *</label>
+                        <input type="text" id="cpf" required placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone *</label>
+                        <input type="tel" id="telefone" required placeholder="(31) 90000-0000" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha *</label>
+                    <input type="password" id="senha" required placeholder="Digite sua senha">
+                </div>
+                <button type="submit" class="btn-auth-submit">Cadastrar</button>
+            </form>
+            <div class="auth-footer">
+                <p>J&aacute; possui uma conta? <a href="login.html" class="auth-link-blue">Entrar</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div id="divEsquerda">
+            <img src="logo-delivery.png" alt="Trattoria Venezia" id="logo-footer">
+            <h4 id="tituloFooter">comidas italianas <br> a melhor do CN</h4>
+        </div>
+
+        <div id="divDireita">
+            <div class="tresdivs">
+                <h3>NAVEGA&Ccedil;&Atilde;O</h3>
+                <div class="linha"></div>
+                <ul id="ul-navegacao">
+                    <a href="index.html" class="botoes-nav">Home</a>
+                    <a href="index.html#cardapio" class="botoes-nav">Card&aacute;pio</a>
+                    <a href="meus-pedidos.html" class="botoes-nav">Historico de Pedidos</a>
+                    <a href="carrinho.html" class="botoes-nav">Carrinho</a>
+                </ul>
+            </div>
+
+            <div class="tresdivs">
+                <h3>CONTATO</h3>
+                <div class="linha"></div>
+                <div id="elementos-sla">
+                    <div class="slatbm">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h4 class="h4-footer">Belo Horizonte - MG</h4>
+                    </div>
+                    <div class="slatbm">
+                        <i class="fa-solid fa-phone"></i>
+                        <h4 class="h4-footer">(31) 6761426924</h4>
+                    </div>
+                    <div class="slatbm">
+                        <i class="fa-solid fa-envelope"></i>
+                        <h4 class="h4-footer">contato@trattoria.veneziacom.br</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tresdivs">
+                <h3>NOSSO INSTAGRAM</h3>
+                <div class="linha"></div>
+                <div class="slatbm slatbmDireita">
+                    <i class="fa-brands fa-instagram"></i>
+                    <h4 class="h4-footer">rafaelmota0712</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="address.js"></script>
+    <script src="user.js"></script>
+
+    <script src="dark-mode.js"></script>
+</body>
+</html>

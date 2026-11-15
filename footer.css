@@ -1,0 +1,133 @@
+.site-footer {
+    width: 100%;
+    background-color: var(--dark-wine);
+    color: var(--text-white);
+    padding: 48px 40px 24px 40px;
+    border-top: 3px solid var(--accent-gold);
+}
+
+.site-footer #divEsquerda {
+    max-width: 1200px;
+    margin: 0 auto 32px auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.site-footer #logo-footer {
+    height: 70px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.site-footer #tituloFooter {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    line-height: 1.3;
+}
+
+.site-footer #divDireita {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.site-footer .tresdivs h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+.site-footer .linha {
+    width: 48px;
+    height: 2px;
+    background-color: var(--accent-gold);
+    border-radius: 2px;
+    margin-bottom: 16px;
+}
+
+.site-footer #ul-navegacao {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.site-footer .botoes-nav {
+    color: var(--text-white);
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.site-footer .botoes-nav:hover {
+    color: var(--accent-gold);
+}
+
+.site-footer #elementos-sla {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.site-footer .slatbm {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.site-footer .slatbm i {
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    width: 22px;
+    text-align: center;
+}
+
+.site-footer .h4-footer {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-white);
+}
+
+.site-footer .slatbmDireita {
+    margin-top: 4px;
+}
+
+.site-footer .slatbmDireita:hover .h4-footer {
+    color: var(--accent-gold);
+}
+
+@media (max-width: 900px) {
+    .site-footer #divDireita {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .site-footer {
+        padding: 36px 20px 20px 20px;
+    }
+
+    .site-footer #divEsquerda {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .site-footer #divDireita {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .site-footer .tresdivs {
+        text-align: left;
+    }
+}
